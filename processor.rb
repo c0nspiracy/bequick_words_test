@@ -1,5 +1,3 @@
-# test
-
 class Processor
 	# Omit strings less than 4 characters and extract the 4-letter
 	# sequences from the other strings.
