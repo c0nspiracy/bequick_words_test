@@ -36,7 +36,7 @@ class Processor
     end
 
     def alphabetize_pairs_by_seq pair_list
-      pair_list.sort_by{ |seq, original|  seq  }
+      pair_list.sort_by{ |seq, original|  seq.downcase  }
     end
 	
     # Pairing up every 4-letter sequence with the word it
