@@ -1,5 +1,4 @@
 class Processor
-
   def initialize(input_filename, output_filename)
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
@@ -58,7 +57,7 @@ class Processor
   end
 
   def remove_unwanted_duplicates
-    @pairs_array.map{ |pair| pair.first }
+    @pairs_array.map { |pair| pair.first }
     duplicate_sequences = identify_duplicate_sequences
     @pairs_array.reject! do |sequence, original|
       duplicate_sequences.include? sequence
@@ -66,7 +65,7 @@ class Processor
   end
 
   def alphabetize_pairs_by_sequence
-    @pairs_array.sort_by!{ |sequence, original| sequence.downcase  }
+    @pairs_array.sort_by! { |sequence, original| sequence.downcase  }
   end
 
   def formatter(sequence, word)
@@ -76,5 +75,4 @@ class Processor
   def quote_string(s)
     '' + s + ''
   end
-
 end

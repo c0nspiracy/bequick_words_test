@@ -1,5 +1,5 @@
-require 'test/unit'
-require_relative 'processor'
+require "test/unit"
+require_relative "processor"
 
 class TestProcessor < Test::Unit::TestCase
   def test_extract_sequences_from_word
@@ -56,5 +56,4 @@ class TestProcessor < Test::Unit::TestCase
   #   sanitized_pair = [["carr", "carrots"], ["give", "give"]]
   #   assert_equal sanitized_pair, pro.create_list(pairs)
   # end
-
 end
