@@ -3,13 +3,12 @@ class Processor
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
     @sequences = []
-    @pairs_array = []
   end
 
   def create_list
     pairs = create_sequence_word_pairs(@dictionary)
-    @pairs_array = alphabetize_pairs_by_sequence(pairs)
-    output_to_file
+    pairs = alphabetize_pairs_by_sequence(pairs)
+    output_to_file(pairs)
   end
 
   def get_words_from_file(input_filename)
@@ -32,9 +31,9 @@ class Processor
     pairs.sort_by { |sequence, original| sequence.downcase  }
   end
 
-  def output_to_file
+  def output_to_file(pairs)
     File.open @output_filename, "w" do |csv|
-      @pairs_array.each do |sequence, original|
+      pairs.each do |sequence, original|
         csv.puts "#{sequence}   #{original}"
       end
     end
