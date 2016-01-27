@@ -30,7 +30,7 @@ class TestProcessor < Test::Unit::TestCase
     assert_equal({}, pro.create_sequence_word_pairs([]))
 
     pair = ["trump", "hair"]
-    pair2 = { "trum" => ["trump"], "rump" => ["trump"], "hair" => ["hair"] }
+    pair2 = { "trum" => "trump", "rump" => "trump", "hair" => "hair" }
 
     assert_equal pair2, pro.create_sequence_word_pairs(pair)
   end

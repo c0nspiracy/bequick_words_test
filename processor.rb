@@ -8,7 +8,6 @@ class Processor
 
   def create_list
     pairs = create_sequence_word_pairs(@dictionary)
-    pairs = remove_unwanted_duplicates(pairs)
     @pairs_array = alphabetize_pairs_by_sequence(pairs)
     output_to_file
   end
@@ -18,20 +17,15 @@ class Processor
   end
 
   def create_sequence_word_pairs(dictionary)
-    hash = Hash.new { |hash, key| hash[key] = [] }
-    dictionary.each_with_object(hash) { |word, memo|
+    dictionary.each_with_object({}) { |word, memo|
       extract_sequences_from_word(word).each do |sequence|
-        memo[sequence] << word
+        memo[sequence] = memo.key?(sequence) ? nil : word
       end
-    }
+    }.reject { |_, v| v.nil? }
   end
 
   def extract_sequences_from_word(word)
     (0..(word.length - 4)).map { |n| word.slice(n, 4) }
-  end
-
-  def remove_unwanted_duplicates(pairs)
-    pairs.reject { |k, v| v.count > 1 }
   end
 
   def alphabetize_pairs_by_sequence(pairs)
@@ -41,7 +35,7 @@ class Processor
   def output_to_file
     File.open @output_filename, "w" do |csv|
       @pairs_array.each do |pairing|
-        sequence, original = pairing.flatten
+        sequence, original = pairing
         output_line = formatter sequence, original
         csv.puts output_line
       end
