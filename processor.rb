@@ -27,7 +27,7 @@ class Processor
   end
 
   def alphabetize_pairs_by_sequence(pairs)
-    pairs.sort_by { |sequence, original| sequence.downcase  }
+    pairs.sort_by { |sequence, _| sequence.downcase  }
   end
 
   def output_to_file(pairs)
