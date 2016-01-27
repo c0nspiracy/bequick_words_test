@@ -23,7 +23,7 @@ class TestProcessor < Test::Unit::TestCase
     assert_no_match(/\s/, words.join)
     assert_nil words.detect{ |w| w.length == 0 }
   end
-  #
+
   # def test_identify_duplicate_sequences
   #   pro = Processor.new("dictionary.txt", "sequence_list.txt")
   #   list = ['word', 'word', 'word', 'help']
