@@ -35,17 +35,8 @@ class Processor
   def output_to_file
     File.open @output_filename, "w" do |csv|
       @pairs_array.each do |sequence, original|
-        output_line = formatter sequence, original
-        csv.puts output_line
+        csv.puts "#{sequence}   #{original}"
       end
     end
-  end
-
-  def formatter(sequence, word)
-    [quote_string(sequence), quote_string(word)].join '   '
-  end
-
-  def quote_string(s)
-    '' + s + ''
   end
 end
