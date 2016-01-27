@@ -25,12 +25,21 @@ class TestProcessor < Test::Unit::TestCase
   end
 
   def test_create_list
-    pro = Processor.new([])
-    assert_equal [], pro.create_list
+    words = []
+    processor = Processor.new(words)
+    expected = []
+    assert_equal expected, processor.create_list
 
-    words = ["rabbit", "rabbis"]
-    pro = Processor.new(words)
-    sanitized_pair = [["bbis", "rabbis"], ["bbit", "rabbit"]]
-    assert_equal sanitized_pair, pro.create_list
+    words = %w(arrows carrots give me)
+    processor = Processor.new(words)
+    expected = [
+      ["carr", "carrots"],
+      ["give", "give"],
+      ["rots", "carrots"],
+      ["rows", "arrows"],
+      ["rrot", "carrots"],
+      ["rrow", "arrows"]
+    ]
+    assert_equal expected, processor.create_list
   end
 end
