@@ -7,7 +7,7 @@ class Processor
   end
 
   def create_list
-    create_sequence_word_pairs
+    @pairs_array = create_sequence_word_pairs(@dictionary)
     remove_unwanted_duplicates
     alphabetize_pairs_by_sequence
     output_to_file
@@ -17,12 +17,11 @@ class Processor
     File.read(input_filename).strip.split
   end
 
-  def create_sequence_word_pairs
-    @dictionary.each do |word|
+  def create_sequence_word_pairs(dictionary)
+    dictionary.flat_map do |word|
       extracted_sequences = extract_sequences_from_word(word)
-      extracted_sequences.each do |sequence|
-        pair = [sequence, word]
-        @pairs_array << pair
+      extracted_sequences.map do |sequence|
+        [sequence, word]
       end
     end
   end

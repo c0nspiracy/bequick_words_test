@@ -36,17 +36,17 @@ class TestProcessor < Test::Unit::TestCase
   #   assert_equal [], duplicates2
   # end
 
-  # def test_create_sequence_word_pairs
-  #   pro = Processor.new("dictionary.txt", "sequence_list.txt")
-  #
-  #   assert_equal [], pro.create_sequence_word_pairs([])
-  #
-  #   pair = ["trump", "hair"]
-  #   pair2 = [["trum", "trump"], ["rump", "trump"], ["hair", "hair"]]
-  #
-  #   assert_equal pair2, pro.create_sequence_word_pairs(pair)
-  # end
-  #
+  def test_create_sequence_word_pairs
+    pro = Processor.new("dictionary.txt", "sequence_list.txt")
+
+    assert_equal [], pro.create_sequence_word_pairs([])
+
+    pair = ["trump", "hair"]
+    pair2 = [["trum", "trump"], ["rump", "trump"], ["hair", "hair"]]
+
+    assert_equal pair2, pro.create_sequence_word_pairs(pair)
+  end
+
   # def test_create_list
   #   pro = Processor.new("dictionary.txt", "sequence_list.txt")
   #
