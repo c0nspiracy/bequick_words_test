@@ -1,11 +1,11 @@
 class Processor
   def initialize(input_filename, output_filename)
-    @dictionary = get_words_from_file(input_filename)
+    @words = get_words_from_file(input_filename)
     @output_filename = output_filename
   end
 
   def create_list
-    pairs = create_sequence_word_pairs(@dictionary)
+    pairs = create_sequence_word_pairs(@words)
     pairs = alphabetize_pairs_by_sequence(pairs)
     output_to_file(pairs)
   end
@@ -14,8 +14,8 @@ class Processor
     File.read(input_filename).strip.split
   end
 
-  def create_sequence_word_pairs(dictionary)
-    dictionary.each_with_object({}) { |word, memo|
+  def create_sequence_word_pairs(words)
+    words.each_with_object({}) { |word, memo|
       extract_sequences_from_word(word).each do |sequence|
         memo[sequence] = memo.key?(sequence) ? nil : word
       end
