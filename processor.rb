@@ -9,7 +9,7 @@ class Processor
   def create_list
     @pairs_array = create_sequence_word_pairs(@dictionary)
     @pairs_array = remove_unwanted_duplicates(@pairs_array)
-    alphabetize_pairs_by_sequence
+    @pairs_array = alphabetize_pairs_by_sequence(@pairs_array)
     output_to_file
   end
 
@@ -52,8 +52,8 @@ class Processor
     @sequences.select { |e| @sequences.count(e) > 1 }.uniq
   end
 
-  def alphabetize_pairs_by_sequence
-    @pairs_array.sort_by! { |sequence, original| sequence.downcase  }
+  def alphabetize_pairs_by_sequence(pairs)
+    pairs.sort_by { |sequence, original| sequence.downcase  }
   end
 
   def output_to_file
