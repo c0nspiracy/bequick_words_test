@@ -1,5 +1,13 @@
 require_relative 'processor'
 
-processor = Processor.new("dictionary.txt", "sequence_list.txt")
+words = File.read("dictionary.txt").strip.split
 
-processor.create_list
+processor = Processor.new(words)
+
+pairs = processor.create_list
+
+File.open "sequence_list.txt", "w" do |csv|
+  pairs.each do |sequence, original|
+    csv.puts "#{sequence}   #{original}"
+  end
+end

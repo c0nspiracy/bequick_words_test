@@ -1,17 +1,11 @@
 class Processor
-  def initialize(input_filename, output_filename)
-    @words = get_words_from_file(input_filename)
-    @output_filename = output_filename
+  def initialize(words = [])
+    @words = words
   end
 
   def create_list
     pairs = create_sequence_word_pairs(@words)
-    pairs = alphabetize_pairs_by_sequence(pairs)
-    output_to_file(pairs)
-  end
-
-  def get_words_from_file(input_filename)
-    File.read(input_filename).strip.split
+    alphabetize_pairs_by_sequence(pairs)
   end
 
   def create_sequence_word_pairs(words)
@@ -28,13 +22,5 @@ class Processor
 
   def alphabetize_pairs_by_sequence(pairs)
     pairs.sort_by { |sequence, _| sequence.downcase  }
-  end
-
-  def output_to_file(pairs)
-    File.open @output_filename, "w" do |csv|
-      pairs.each do |sequence, original|
-        csv.puts "#{sequence}   #{original}"
-      end
-    end
   end
 end
