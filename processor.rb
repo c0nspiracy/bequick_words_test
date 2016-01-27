@@ -44,8 +44,7 @@ class Processor
   def output_to_file
     File.open @output_filename, "w" do |csv|
       @pairs_array.each do |pairing|
-        sequence = pairing[0]
-        original = pairing[1]
+        sequence, original = pairing
         output_line = formatter sequence, original
         csv.puts output_line
       end
