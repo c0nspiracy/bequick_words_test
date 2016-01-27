@@ -49,7 +49,10 @@ class Processor
   end
 
   def identify_duplicate_sequences(sequences)
-    sequences.select { |e| sequences.count(e) > 1 }.uniq
+    sequence_count = sequences.each_with_object(Hash.new(0)) { |sequence, memo|
+      memo[sequence] += 1
+    }
+    sequences.select { |sequence| sequence_count[sequence] > 1 }.uniq
   end
 
   def alphabetize_pairs_by_sequence(pairs)
