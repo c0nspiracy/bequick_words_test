@@ -8,9 +8,9 @@ class Processor
   end
 
   def create_list
-    @pairs_array = create_sequence_word_pairs
-    @pairs_array = remove_unwanted_duplicates
-    @pairs_array = alphabetize_pairs_by_sequence
+    create_sequence_word_pairs
+    remove_unwanted_duplicates
+    alphabetize_pairs_by_sequence
     output_to_file
   end
 
@@ -68,7 +68,7 @@ class Processor
   end
 
   def alphabetize_pairs_by_sequence
-    @pairs_array.sort_by{ |sequence, original| sequence.downcase  }
+    @pairs_array.sort_by!{ |sequence, original| sequence.downcase  }
   end
 
   def formatter(sequence, word)
