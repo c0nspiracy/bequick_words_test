@@ -8,7 +8,7 @@ class Processor
 
   def create_list
     @pairs_array = create_sequence_word_pairs(@dictionary)
-    remove_unwanted_duplicates
+    @pairs_array = remove_unwanted_duplicates(@pairs_array)
     alphabetize_pairs_by_sequence
     output_to_file
   end
@@ -40,10 +40,10 @@ class Processor
     sequences
   end
 
-  def remove_unwanted_duplicates
-    @pairs_array.map { |pair| pair.first }
+  def remove_unwanted_duplicates(pairs)
+    pairs.map { |pair| pair.first }
     duplicate_sequences = identify_duplicate_sequences
-    @pairs_array.reject! do |sequence, original|
+    pairs.reject do |sequence, original|
       duplicate_sequences.include? sequence
     end
   end
