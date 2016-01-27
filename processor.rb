@@ -27,17 +27,7 @@ class Processor
   end
 
   def extract_sequences_from_word(word)
-    sequences = []
-
-    while word.length > 3
-      four_letter_sequence = word[0..3]
-
-      sequences << four_letter_sequence
-
-      word = word[1..-1]
-    end
-
-    sequences
+    (0..(word.length - 4)).map { |n| word.slice(n, 4) }
   end
 
   def remove_unwanted_duplicates(pairs)
