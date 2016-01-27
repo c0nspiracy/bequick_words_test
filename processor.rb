@@ -2,7 +2,6 @@ class Processor
   def initialize(input_filename, output_filename)
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
-    @sequences = []
   end
 
   def create_list
