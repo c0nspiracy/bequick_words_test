@@ -28,7 +28,7 @@ class Processor
       word = word[1..-1]
     end
 
-    return sequences
+    sequences
   end
 
   def create_sequence_word_pairs
