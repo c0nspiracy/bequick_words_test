@@ -24,13 +24,13 @@ class TestProcessor < Test::Unit::TestCase
     assert_equal pair2, pro.create_sequence_word_pairs(pair)
   end
 
-  # def test_create_list
-  #   pro = Processor.new("dictionary.txt", "sequence_list.txt")
-  #
-  #   assert_equal [], pro.create_list([])
-  #
-  #   pairs = [["carr", "carrots"], ["arro", "arrows"], ["arro", "carrots"], ["give", "give"]]
-  #   sanitized_pair = [["carr", "carrots"], ["give", "give"]]
-  #   assert_equal sanitized_pair, pro.create_list(pairs)
-  # end
+  def test_create_list
+    pro = Processor.new([])
+    assert_equal [], pro.create_list
+
+    words = ["rabbit", "rabbis"]
+    pro = Processor.new(words)
+    sanitized_pair = [["bbis", "rabbis"], ["bbit", "rabbit"]]
+    assert_equal sanitized_pair, pro.create_list
+  end
 end
