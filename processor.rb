@@ -14,8 +14,6 @@ class Processor
     output_to_file
   end
 
-  private
-
   def get_words_from_file(input_filename)
     File.read(input_filename).strip.split
   end
