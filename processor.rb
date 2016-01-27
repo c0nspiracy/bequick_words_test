@@ -41,15 +41,15 @@ class Processor
   end
 
   def remove_unwanted_duplicates(pairs)
-    pairs.map { |pair| pair.first }
-    duplicate_sequences = identify_duplicate_sequences
+    sequences = pairs.map { |pair| pair.first }
+    duplicate_sequences = identify_duplicate_sequences(sequences)
     pairs.reject do |sequence, original|
       duplicate_sequences.include? sequence
     end
   end
 
-  def identify_duplicate_sequences
-    @sequences.select { |e| @sequences.count(e) > 1 }.uniq
+  def identify_duplicate_sequences(sequences)
+    sequences.select { |e| sequences.count(e) > 1 }.uniq
   end
 
   def alphabetize_pairs_by_sequence(pairs)
