@@ -17,6 +17,16 @@ class Processor
     File.read(input_filename).strip.split
   end
 
+  def create_sequence_word_pairs
+    @dictionary.each do |word|
+      extracted_sequences = extract_sequences_from_word(word)
+      extracted_sequences.each do |sequence|
+        pair = [sequence, word]
+        @pairs_array << pair
+      end
+    end
+  end
+
   def extract_sequences_from_word(word)
     sequences = []
 
@@ -31,14 +41,20 @@ class Processor
     sequences
   end
 
-  def create_sequence_word_pairs
-    @dictionary.each do |word|
-      extracted_sequences = extract_sequences_from_word(word)
-      extracted_sequences.each do |sequence|
-        pair = [sequence, word]
-        @pairs_array << pair
-      end
+  def remove_unwanted_duplicates
+    @pairs_array.map { |pair| pair.first }
+    duplicate_sequences = identify_duplicate_sequences
+    @pairs_array.reject! do |sequence, original|
+      duplicate_sequences.include? sequence
     end
+  end
+
+  def identify_duplicate_sequences
+    @sequences.select { |e| @sequences.count(e) > 1 }.uniq
+  end
+
+  def alphabetize_pairs_by_sequence
+    @pairs_array.sort_by! { |sequence, original| sequence.downcase  }
   end
 
   def output_to_file
@@ -49,22 +65,6 @@ class Processor
         csv.puts output_line
       end
     end
-  end
-
-  def identify_duplicate_sequences
-    @sequences.select { |e| @sequences.count(e) > 1 }.uniq
-  end
-
-  def remove_unwanted_duplicates
-    @pairs_array.map { |pair| pair.first }
-    duplicate_sequences = identify_duplicate_sequences
-    @pairs_array.reject! do |sequence, original|
-      duplicate_sequences.include? sequence
-    end
-  end
-
-  def alphabetize_pairs_by_sequence
-    @pairs_array.sort_by! { |sequence, original| sequence.downcase  }
   end
 
   def formatter(sequence, word)
