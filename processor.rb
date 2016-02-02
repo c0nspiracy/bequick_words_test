@@ -10,7 +10,7 @@ class Processor
 
   def create_list
     create_sequence_word_pairs
-    unique_sequences = select_unique_sequences
+    unique_sequences = select_unique_sequences(@pairs_hash)
     alphabetize_pairs_by_sequence(unique_sequences)
   end
 
@@ -35,8 +35,8 @@ class Processor
     end
   end
 
-  def select_unique_sequences
-    @pairs_hash.select do |sequence, duplicate_words_array|
+  def select_unique_sequences(sequence_word_pairs)
+    sequence_word_pairs.select do |sequence, duplicate_words_array|
       duplicate_words_array.length == 1
     end
   end
