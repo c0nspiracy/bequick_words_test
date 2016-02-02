@@ -5,14 +5,12 @@ class Processor
   def initialize(input_filename, output_filename)
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
-    @sequences = []
-    @pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
   end
 
   def create_list
-    create_sequence_word_pairs
-    select_unique_sequences
-    alphabetize_pairs_by_sequence
+    sequence_word_pairs = create_sequence_word_pairs(@dictionary)
+    unique_sequences = select_unique_sequences(sequence_word_pairs)
+    alphabetize_pairs_by_sequence(unique_sequences)
   end
 
   def get_words_from_file(input_filename)
@@ -20,30 +18,32 @@ class Processor
   end
 
   def all_sequences(word)
-    @sequences = []
+    sequences = []
     while word.length > 3
       four_letter_sequence = word[0..3]
-      @sequences << four_letter_sequence
+      sequences << four_letter_sequence
       word = word[1..-1]
     end
-    return @sequences
+    sequences
   end
 
-  def create_sequence_word_pairs
-    @dictionary.each do |word|
+  def create_sequence_word_pairs(words)
+    pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
+    words.each do |word|
       extracted_sequences = all_sequences(word)
-      extracted_sequences.each { |sequence| @pairs_hash[sequence] << word }
+      extracted_sequences.each { |sequence| pairs_hash[sequence] << word }
     end
+    pairs_hash
   end
 
-  def select_unique_sequences
-    @pairs_hash.select do |sequence, duplicate_words_array|
+  def select_unique_sequences(sequence_word_pairs)
+    sequence_word_pairs.select do |sequence, duplicate_words_array|
       duplicate_words_array.length == 1
     end
   end
 
-  def alphabetize_pairs_by_sequence
-    select_unique_sequences.sort_by { |sequence, word| sequence.downcase }
+  def alphabetize_pairs_by_sequence(unique_sequences)
+    unique_sequences.sort_by { |sequence, word| sequence.downcase }
   end
 
   # def output_to_file
