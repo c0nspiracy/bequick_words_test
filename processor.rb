@@ -5,12 +5,11 @@ class Processor
   def initialize(input_filename, output_filename)
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
-    @pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
   end
 
   def create_list
-    create_sequence_word_pairs
-    unique_sequences = select_unique_sequences(@pairs_hash)
+    sequence_word_pairs = create_sequence_word_pairs
+    unique_sequences = select_unique_sequences(sequence_word_pairs)
     alphabetize_pairs_by_sequence(unique_sequences)
   end
 
@@ -29,10 +28,12 @@ class Processor
   end
 
   def create_sequence_word_pairs
+    pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
     @dictionary.each do |word|
       extracted_sequences = all_sequences(word)
-      extracted_sequences.each { |sequence| @pairs_hash[sequence] << word }
+      extracted_sequences.each { |sequence| pairs_hash[sequence] << word }
     end
+    pairs_hash
   end
 
   def select_unique_sequences(sequence_word_pairs)
