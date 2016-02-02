@@ -10,8 +10,8 @@ class Processor
 
   def create_list
     create_sequence_word_pairs
-    select_unique_sequences
-    alphabetize_pairs_by_sequence
+    unique_sequences = select_unique_sequences
+    alphabetize_pairs_by_sequence(unique_sequences)
   end
 
   def get_words_from_file(input_filename)
@@ -41,8 +41,8 @@ class Processor
     end
   end
 
-  def alphabetize_pairs_by_sequence
-    select_unique_sequences.sort_by { |sequence, word| sequence.downcase }
+  def alphabetize_pairs_by_sequence(unique_sequences)
+    unique_sequences.sort_by { |sequence, word| sequence.downcase }
   end
 
   # def output_to_file
