@@ -5,7 +5,6 @@ class Processor
   def initialize(input_filename, output_filename)
     @dictionary = get_words_from_file(input_filename)
     @output_filename = output_filename
-    @sequences = []
     @pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
   end
 
@@ -20,13 +19,13 @@ class Processor
   end
 
   def all_sequences(word)
-    @sequences = []
+    sequences = []
     while word.length > 3
       four_letter_sequence = word[0..3]
-      @sequences << four_letter_sequence
+      sequences << four_letter_sequence
       word = word[1..-1]
     end
-    return @sequences
+    sequences
   end
 
   def create_sequence_word_pairs
