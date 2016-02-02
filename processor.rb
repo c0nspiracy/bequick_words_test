@@ -8,7 +8,7 @@ class Processor
   end
 
   def create_list
-    sequence_word_pairs = create_sequence_word_pairs
+    sequence_word_pairs = create_sequence_word_pairs(@dictionary)
     unique_sequences = select_unique_sequences(sequence_word_pairs)
     alphabetize_pairs_by_sequence(unique_sequences)
   end
@@ -27,9 +27,9 @@ class Processor
     sequences
   end
 
-  def create_sequence_word_pairs
+  def create_sequence_word_pairs(words)
     pairs_hash = Hash.new { |pairs_hash, sequence| pairs_hash[sequence] = [] }
-    @dictionary.each do |word|
+    words.each do |word|
       extracted_sequences = all_sequences(word)
       extracted_sequences.each { |sequence| pairs_hash[sequence] << word }
     end
